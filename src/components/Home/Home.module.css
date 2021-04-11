@@ -1,0 +1,21 @@
+.headerText {
+  font-size: 4.2rem;
+  font-weight: bold;
+  font-family: RocknRoll One;
+}
+
+@media (max-width: 1024px) {
+  .headerText {
+    font-size: 4.2rem;
+  }
+}
+@media (max-width: 768px) {
+  .headerText {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 500px) {
+  .headerText {
+    font-size: 2.5rem;
+  }
+}
