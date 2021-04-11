@@ -11,7 +11,7 @@ class Header extends Component {
             <div>
                 <div className="navbar-fixed">
                     <nav className="nav-wrapper indigo">
-                        <div className="container">
+                        <div className="container" style={{width: "85%"}}>
                             <ul className="left">
                                 <a href="#" data-target="slide-out" className="sidenav-trigger show-on-med">
                                     <i className="material-icons">menu</i>
@@ -20,7 +20,10 @@ class Header extends Component {
                             </ul>
                             <ul className="right hide-on-med-and-down">
                                 <li>
-                                    <a href="/todos">Todos</a>
+                                    <a href="/">Home</a>
+                                </li>
+                                <li>
+                                    <a href="/habits">Habits</a>
                                 </li>
                                 <li>
                                     <a href="/tasks">Tasks</a>
@@ -34,7 +37,10 @@ class Header extends Component {
                 </div>
                 <ul class="sidenav" id="slide-out">
                     <li>
-                        <a href="/todos">Todos</a>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/habits">Habits</a>
                     </li>
                     <li>
                         <a href="/tasks">Tasks</a>
