@@ -9,7 +9,7 @@ const Home = () => {
                     <h1 className={classes.headerText}>Manage your daily tasks more effectively</h1>
                 </div>
                 <div class="col s12 m7 l6">
-                    <img src="/tasks.svg" width="100%" />
+                    <img alt="tasksListSVG" src="/tasks.svg" width="100%" />
                 </div>
             </div>
         </div>
