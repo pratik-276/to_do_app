@@ -1,12 +1,11 @@
 import React from 'react';
 
-const Todo = () => {
+const Habit = () => {
     return (
-        <li className="collection-item avatar green lighten-4">
+        <li className="collection-item avatar valign-wrapper" style={{margin: "2px 0px"}}>
             <i className="material-icons green circle">insert_chart</i>
             <span className="title" style={{fontWeight: "bold"}}>Dummy Text</span>
-            <p>No description</p>
-            <span className="secondary-content">
+            <span className="secondary-content" style={{margin: "10px 0px"}}>
                 <i className="material-icons green-text">done</i>
                 <i className="material-icons red-text">close</i>
                 <i className="material-icons black-text">delete</i>
@@ -15,4 +14,4 @@ const Todo = () => {
     );
 }
  
-export default Todo;
+export default Habit;
