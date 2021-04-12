@@ -44,3 +44,21 @@ export const getHabit = () => {
             })
     }
 }
+
+const removeHabit = (id) => {
+    return {
+        type: actionTypes.DELETE_HABIT,
+        id: id
+    }
+}
+
+export const deleteHabit = (id) => {
+    return dispatch => {
+        axios.delete("habits/"+id+".json")
+            .then(response => {
+                dispatch(removeHabit(id));
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}

@@ -38,13 +38,15 @@ class Habits extends Component {
                 <ul className="collection with-header">
                     <li className="collection-header"><h3>HABITS</h3></li>
                     {this.props.habits.map(habit => (
-                        <Habit key={habit.id} habit={habit}/>
+                        <Habit key={habit.id} habit={habit} 
+                                delete={this.props.deleteHabit} />
                     ))}
                 </ul>
                 <button href="#addhabit" className="btn-large waves-effect waves-indigo white blue-text modal-trigger" style={{marginBottom: "20px"}}>
                     <i className="material-icons left">add</i>Add Habit
                 </button>
-                <div id="addhabit" className="modal" style={{height: "100%", outline: "none"}}>
+                <div id="addhabit" className="modal modal-fixed-footer" 
+                    style={{minHeight: "400px", outline: "none", padding: "20px 0px"}}>
                     <div className="modal-content">
                         <form>
                             <div className="input-field">
@@ -61,19 +63,20 @@ class Habits extends Component {
                                 <select id="category" value={this.state.category}
                                     onChange={this.onCategoryChange}>
                                     <option value="task">Task</option>
+                                    <option value="quit">Quit a Bad Habit</option>
                                     <option value="meditation">Meditation</option>
                                     <option value="study">Study</option>
+                                    <option value="nutrition">Nutrition / Diet</option>
                                     <option value="health">Health</option>
                                     <option value="exercise">Exercise</option>
                                 </select>
                                 <label htmlFor="category">Select Category</label>
                             </div>
-                            <a className="btn white blue-text waves-effect waves-red modal-action modal-close" onClick={this.onFormSubmit}>Submit</a>
                         </form>
                     </div>
-                    {/* <div className="modal-footer">
-                        <a className="btn modal-action modal-close">Ok</a>
-                    </div> */}
+                    <div className="modal-footer" style={{textAlign: "center"}}>
+                        <a className="btn white blue-text waves-effect waves-red modal-action modal-close" onClick={this.onFormSubmit}>Submit</a>
+                    </div>
                 </div>
             </div>
         );
@@ -89,7 +92,8 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
     return {
         getHabits: () => dispatch(actions.getHabit()),
-        addHabit: (data) => dispatch(actions.addHabit(data))
+        addHabit: (data) => dispatch(actions.addHabit(data)),
+        deleteHabit: (id) => dispatch(actions.deleteHabit(id))
     }
 }
  

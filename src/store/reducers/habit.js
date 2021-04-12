@@ -16,6 +16,11 @@ const reducer = (state=initialState, action) => {
             return updateObject(state, {
                 habits: state.habits.concat(newData)
             });
+        case actionTypes.DELETE_HABIT:
+            const habits = state.habits.filter(habit => habit.id!==action.id);
+            return updateObject(state, {
+                habits: habits
+            });
         default:
             return state;
     }
