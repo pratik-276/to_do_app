@@ -13,7 +13,7 @@ export const categoryToIcon = (category) => {
         case "exercise":
             return <i class="material-icons indigo circle">directions_run</i>;
         case "study":
-            return <i class="material-icons purple lighten-3 circle">book</i>;
+            return <i class="material-icons purple lighten-3 circle">school</i>;
         default:
             return <i className="material-icons circle">work</i>;
     }
