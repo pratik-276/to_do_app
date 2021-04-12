@@ -1,10 +1,11 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-const addHabittoStore = (data) => {
+const addHabittoStore = (data, id) => {
     return {
         type: actionTypes.ADD_HABIT,
-        data: data
+        data: data,
+        id: id
     }
 }
 
@@ -12,8 +13,7 @@ export const addHabit = (data) => {
     return dispatch => {
         axios.post("habits.json", data)
             .then(response => {
-                console.log(response.data);
-                dispatch(addHabittoStore(data));
+                dispatch(addHabittoStore(data, response.data.name));
             }).catch(err => {
                 console.log(err);
             })
@@ -31,8 +31,14 @@ export const getHabit = () => {
     return dispatch => {
         axios.get("habits.json")
             .then(response => {
-                console.log(response.data);
-                dispatch(getAllHabits(response.data));
+                const fetchedHabits = [];
+                for(let h in response.data){
+                    fetchedHabits.push({
+                        ...response.data[h],
+                        id: h
+                    });
+                }
+                dispatch(getAllHabits(fetchedHabits));
             }).catch(err => {
                 console.log(err);
             })

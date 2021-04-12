@@ -11,7 +11,7 @@ class Header extends Component {
             <div>
                 <div className="navbar-fixed">
                     <nav className="nav-wrapper indigo">
-                        <div className="container" style={{width: "85%"}}>
+                        <div className="container" style={{minWidth: "85%"}}>
                             <ul className="left">
                                 <a href="#" data-target="slide-out" className="sidenav-trigger show-on-med">
                                     <i className="material-icons">menu</i>

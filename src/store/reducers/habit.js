@@ -12,8 +12,9 @@ const reducer = (state=initialState, action) => {
                 habits: action.data
             });
         case actionTypes.ADD_HABIT:
+            const newData = updateObject(action.data, {id: action.id});
             return updateObject(state, {
-                habits: state.habits.concat(action.data)
+                habits: state.habits.concat(newData)
             });
         default:
             return state;
