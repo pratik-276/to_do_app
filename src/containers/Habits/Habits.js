@@ -11,10 +11,19 @@ class Habits extends Component {
         description: "",
         category: "task"
     }
+    componentWillMount(){
+        this.props.getHabits();
+    }
     componentDidMount(){
         let modal = document.querySelector('.modal');
         M.Modal.init(modal, {});
         M.FormSelect.init(document.querySelectorAll('select'), {});
+    }
+    clearForm = () => {
+        this.setState({
+            title: "",
+            description: ""
+        });
     }
     onTitleChange = (event) => {
         this.setState({title: event.target.value});
@@ -27,10 +36,9 @@ class Habits extends Component {
     }
     onFormSubmit = (event) => {
         event.preventDefault();
-        this.props.addHabit(this.state);
-    }
-    componentWillMount(){
-        this.props.getHabits();
+        const data = this.state;
+        this.clearForm();
+        this.props.addHabit(data);
     }
     render() {
         return (
@@ -76,6 +84,8 @@ class Habits extends Component {
                     </div>
                     <div className="modal-footer" style={{textAlign: "center"}}>
                         <a className="btn white blue-text waves-effect waves-red modal-action modal-close" onClick={this.onFormSubmit}>Submit</a>
+                        &nbsp;&nbsp;
+                        <a class="btn red darken-4 white-text modal-close" onClick={this.clearForm}>Cancel</a>
                     </div>
                 </div>
             </div>

@@ -3,3 +3,9 @@ export {
     addHabit,
     deleteHabit
 } from './habit';
+
+export {
+    getTasks,
+    addTask,
+    deleteTask
+} from './task';

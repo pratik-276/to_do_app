@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import {Switch, Route} from 'react-router-dom';
 import Home from '../Home/Home';
 import Habits from '../../containers/Habits/Habits';
+import Tasks from '../../containers/Tasks/Tasks';
 
 const Layout = () => {
     return (
@@ -11,6 +12,7 @@ const Layout = () => {
             <Header />
             <Switch>
                 <Route path="/habits" component={Habits} />
+                <Route path="/tasks" component={Tasks} />
                 <Route path="/" component={Home} />
             </Switch>
         </div>
