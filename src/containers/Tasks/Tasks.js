@@ -66,7 +66,8 @@ class Tasks extends Component {
                     <li className="collection-header center"><h3>TASKS</h3></li>
                     {this.props.tasks.map(task => (
                         <Task key={task.id} task={task} 
-                                delete={this.props.deleteTask} />
+                                delete={this.props.deleteTask}
+                                complete={this.props.taskComplete} />
                     ))}
                 </ul>
                 <button className="btn-large waves-effect waves-yellow white red-text"
@@ -135,7 +136,8 @@ const mapDispatchtoProps = dispatch => {
     return {
         getTasks: () => dispatch(actions.getTasks()),
         addTask: (data) => dispatch(actions.addTask(data)),
-        deleteTask: (id) => dispatch(actions.deleteTask(id))
+        deleteTask: (id) => dispatch(actions.deleteTask(id)),
+        taskComplete: (data) => dispatch(actions.completeTask(data))
     }
 }
  

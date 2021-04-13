@@ -62,3 +62,65 @@ export const deleteTask = (id) => {
             })
     }
 }
+
+const addCompleteToStore = (data, id) => {
+    return {
+        type: actionTypes.TASK_COMPLETED,
+        data: data,
+        id: id
+    }
+}
+const addCompletedTask = (data) => {
+    const newData = {
+        title: data.title,
+        description: data.description,
+        date: data.date,
+        time: data.time,
+        category: data.category
+    }
+    return dispatch => {
+        axios.post("complete.json", newData)
+            .then(response => {
+                dispatch(addCompleteToStore(newData, response.data.name));
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const completeTask = (data) => {
+    return dispatch => {
+        dispatch(removeTask(data.id));
+        axios.delete("tasks/"+data.id+".json")
+            .then(response => {
+                dispatch(addCompletedTask(data));
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+const getAllCompletedTasks = (data) => {
+    return {
+        type: actionTypes.GET_ALL_COMPLETED,
+        data: data
+    }
+}
+
+export const getCompletedTasks = () => {
+    return dispatch => {
+        axios.get("complete.json")
+            .then(response => {
+                const fetchedComplete = [];
+                for(let h in response.data){
+                    fetchedComplete.push({
+                        ...response.data[h],
+                        id: h
+                    });
+                }
+                dispatch(getAllCompletedTasks(fetchedComplete));
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}

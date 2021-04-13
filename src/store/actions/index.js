@@ -7,5 +7,7 @@ export {
 export {
     getTasks,
     addTask,
-    deleteTask
+    deleteTask,
+    completeTask,
+    getCompletedTasks
 } from './task';

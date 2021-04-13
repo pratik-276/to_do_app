@@ -8,7 +8,8 @@ const Task = (props) => {
             <span className="title" style={{fontWeight: "bold"}}>{props.task.title}</span>
             <p>{props.task.date}</p>
             <span className="secondary-content" style={{margin: "10px 0px"}}>
-                <i className="material-icons green-text">done</i>
+                <i className="material-icons green-text"
+                    onClick={() => props.complete(props.task)}>done</i>
                 <i className="material-icons red-text" 
                     onClick={() => props.delete(props.task.id)}>delete</i>
             </span>

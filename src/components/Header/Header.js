@@ -29,7 +29,7 @@ class Header extends Component {
                                     <a href="/tasks">Tasks</a>
                                 </li>
                                 <li>
-                                    <a href="/completed">Completed Tasks</a>
+                                    <a href="/complete">Completed Tasks</a>
                                 </li>
                             </ul>
                         </div>
@@ -46,7 +46,7 @@ class Header extends Component {
                         <a href="/tasks">Tasks</a>
                     </li>
                     <li>
-                        <a href="/completed">Completed Tasks</a>
+                        <a href="/complete">Completed Tasks</a>
                     </li>
                 </ul>
             </div>
