@@ -28,7 +28,7 @@ class Habits extends Component {
             id: "",
             title: "",
             description: "",
-            category: "task",
+            category: "",
             formState: true
         });
     }
@@ -58,7 +58,6 @@ class Habits extends Component {
             description: data.description,
             formState: false
         });
-        document.getElementById('category').value = data.category;
         document.getElementById("openForm").click();
     }
     render() {
@@ -72,7 +71,7 @@ class Habits extends Component {
                                 edit={this.onEditHabit} />
                     ))}
                 </ul>
-                <button id="openForm" href="#addhabit" className="btn-large waves-effect waves-indigo white blue-text modal-trigger" style={{marginBottom: "20px"}}>
+                <button id="openForm" href="#addhabit" className="btn-large white waves-effect waves-indigo blue-text modal-trigger" style={{marginBottom: "20px"}}>
                     <i className="material-icons left">add</i>Add Habit
                 </button>
                 <div id="addhabit" className="modal modal-fixed-footer" 
@@ -90,8 +89,8 @@ class Habits extends Component {
                                 <label htmlFor="description">Description (optional)</label>
                             </div>
                             <div className="input-field">
-                                <select className="browser-default" name="category" id="category" value={this.state.category} onChange={this.onCategoryChange}>
-                                    <option value="" disabled selected>Select a category</option>
+                                <select className="browser-default" id="category" value={this.state.category} onChange={this.onCategoryChange}>
+                                    <option value="" disabled selected> Select a category</option>
                                     <option value="task">Task</option>
                                     <option value="quit">Quit a Bad Habit</option>
                                     <option value="meditation">Meditation</option>
@@ -100,7 +99,6 @@ class Habits extends Component {
                                     <option value="health">Health</option>
                                     <option value="exercise">Exercise</option>
                                 </select>
-                                {/* <label htmlFor="category">Select Category</label> */}
                             </div>
                         </form>
                     </div>
@@ -108,7 +106,7 @@ class Habits extends Component {
                         <a className="btn white blue-text waves-effect waves-red modal-action modal-close" 
                             onClick={this.onFormSubmit}>{this.state.formState?"Add":"Update"}</a>
                         &nbsp;&nbsp;
-                        <a class="btn red darken-4 white-text modal-close" onClick={this.clearForm}>Cancel</a>
+                        <a className="btn red darken-4 white-text modal-close" onClick={this.clearForm}>Cancel</a>
                     </div>
                 </div>
             </div>

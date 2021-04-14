@@ -7,11 +7,13 @@ import * as actions from '../../store/actions/index';
 
 class Tasks extends Component {
     state = {
+        id: "",
         title: "",
         description: "",
-        category: "task",
+        category: "",
         date: "",
-        time: ""
+        time: "",
+        formState: true
     }
     componentWillMount(){
         this.props.getTasks();
@@ -30,13 +32,14 @@ class Tasks extends Component {
     clearForm = () => {
         document.getElementById("addtask").style.display = "none";
         this.setState({
+            id: "",
             title: "",
             description: "",
             date: "",
-            time: ""
+            time: "",
+            category: "",
+            formState: true
         });
-        document.getElementById("date").value = "";
-        document.getElementById("time").value = "";
     }
     onTitleChange = (event) => {
         this.setState({title: event.target.value});
@@ -55,9 +58,24 @@ class Tasks extends Component {
     }
     onFormSubmit = (event) => {
         event.preventDefault();
-        const data = this.state;
+        if(this.state.formState){
+            this.props.addTask(this.state);
+        }else{
+            this.props.editTask(this.state);
+        }
         this.clearForm();
-        this.props.addTask(data);
+    }
+    onEditTask = (data) => {
+        this.setState({
+            id: data.id,
+            category: data.category,
+            title: data.title,
+            description: data.description,
+            date: data.date,
+            time: data.time,
+            formState: false
+        });
+        document.getElementById("addtask").style.display = "block";
     }
     render() {
         return (
@@ -67,6 +85,7 @@ class Tasks extends Component {
                     {this.props.tasks.map(task => (
                         <Task key={task.id} task={task} 
                                 delete={this.props.deleteTask}
+                                edit={this.onEditTask}
                                 complete={this.props.taskComplete} />
                     ))}
                 </ul>
@@ -86,17 +105,23 @@ class Tasks extends Component {
                     <form>
                         <div className="input-field">
                             <input type="text" id="title" value={this.state.title}
-                                    onChange={this.onTitleChange} />
-                            <label htmlFor="title">Title</label>
+                                onChange={this.onTitleChange} placeholder="Title" />
                         </div>
                         <div className="input-field">
                             <textarea className="materialize-textarea" id="description" cols="30" rows="10" value={this.state.description}
-                            onChange={this.onDescChange}></textarea>
-                            <label htmlFor="description">Description (optional)</label>
+                            onChange={this.onDescChange} placeholder="Description (optional)"></textarea>
                         </div>
                         <div className="input-field">
-                            <select id="category" value={this.state.category}
-                                onChange={this.onCategoryChange}>
+                            <input type="text" className="datepicker" id="date"
+                                value={this.state.date} placeholder="Choose a Date" />
+                        </div>
+                        <div className="input-field">
+                            <input type="text" className="timepicker" id="time"
+                            value={this.state.time} placeholder="Choose a Time (optional)" />
+                        </div>
+                        <div className="input-field">
+                            <select className="browser-default" id="category" value={this.state.category} onChange={this.onCategoryChange}>
+                                <option value="" disabled selected> Select a category</option>
                                 <option value="task">Task</option>
                                 <option value="quit">Quit a Bad Habit</option>
                                 <option value="meditation">Meditation</option>
@@ -105,22 +130,13 @@ class Tasks extends Component {
                                 <option value="health">Health</option>
                                 <option value="exercise">Exercise</option>
                             </select>
-                            <label htmlFor="category">Select Category</label>
-                        </div>
-                        <div className="input-field">
-                            <input type="text" className="datepicker" id="date" />
-                            <label htmlFor="date">Choose a Date</label>
-                        </div>
-                        <div className="input-field">
-                            <input type="text" className="timepicker" id="time" />
-                            <label htmlFor="time">Choose a Time (optional)</label>
                         </div>
                     </form>
-                    <a className="btn green white-text waves-effect waves-red" onClick={this.onFormSubmit}>Submit</a>&nbsp;
+                    <a className="btn green white-text waves-effect waves-red" onClick={this.onFormSubmit}>{this.state.formState?"Add":"Update"}</a>&nbsp;
                     <a class="btn red white-text waves-effect waves-light" 
                         onClick={() => this.clearForm()}>Cancel</a>
                 </div>
-                <div style={{marginTop: "20px", height: "20px"}}></div>
+                <div style={{marginTop: "20px"}}></div>
             </div>
         );
     }
@@ -137,6 +153,7 @@ const mapDispatchtoProps = dispatch => {
         getTasks: () => dispatch(actions.getTasks()),
         addTask: (data) => dispatch(actions.addTask(data)),
         deleteTask: (id) => dispatch(actions.deleteTask(id)),
+        editTask: (data) => dispatch(actions.editTask(data)),
         taskComplete: (data) => dispatch(actions.completeTask(data))
     }
 }

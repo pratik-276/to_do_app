@@ -9,6 +9,7 @@ export {
     getTasks,
     addTask,
     deleteTask,
+    editTask,
     completeTask,
     getCompletedTasks
 } from './task';

@@ -124,3 +124,21 @@ export const getCompletedTasks = () => {
             })
     }
 }
+
+export const editTask = (data) => {
+    const editedTask = {
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        date: data.date,
+        time: data.time
+    }
+    return dispatch => {
+        axios.put("tasks/"+data.id+".json", editedTask)
+            .then(response => {
+                dispatch(getTasks());
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}

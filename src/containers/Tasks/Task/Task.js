@@ -12,7 +12,8 @@ const Task = (props) => {
             <span className="secondary-content">
                 <i className="material-icons green-text"
                     onClick={() => props.complete(props.task)}>done</i>&nbsp;&nbsp;
-                <i class="fa fa-edit brown-text" style={{fontSize: "22px"}}></i>
+                <i class="fa fa-edit brown-text" style={{fontSize: "22px"}}
+                    onClick={() => props.edit(props.task)}></i>
                 &nbsp;&nbsp;
                 <i className="material-icons red-text" 
                     onClick={() => props.delete(props.task.id)}>delete</i>
