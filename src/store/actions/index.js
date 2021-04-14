@@ -1,7 +1,8 @@
 export {
     getHabit,
     addHabit,
-    deleteHabit
+    deleteHabit,
+    editHabit
 } from './habit';
 
 export {

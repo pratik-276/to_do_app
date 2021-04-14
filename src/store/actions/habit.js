@@ -10,10 +10,15 @@ const addHabittoStore = (data, id) => {
 }
 
 export const addHabit = (data) => {
+    const newHabit = {
+        title: data.title,
+        category: data.category,
+        description: data.description
+    }
     return dispatch => {
-        axios.post("habits.json", data)
+        axios.post("habits.json", newHabit)
             .then(response => {
-                dispatch(addHabittoStore(data, response.data.name));
+                dispatch(addHabittoStore(newHabit, response.data.name));
             }).catch(err => {
                 console.log(err);
             })
@@ -57,6 +62,22 @@ export const deleteHabit = (id) => {
         axios.delete("habits/"+id+".json")
             .then(response => {
                 dispatch(removeHabit(id));
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const editHabit = (data) => {
+    const editedHabit = {
+        title: data.title,
+        description: data.description,
+        category: data.category
+    }
+    return dispatch => {
+        axios.put("habits/"+data.id+".json", editedHabit)
+            .then(response => {
+                dispatch(getHabit());
             }).catch(err => {
                 console.log(err);
             })

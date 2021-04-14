@@ -6,8 +6,7 @@ const Task = (props) => {
         <li className="collection-item avatar left-align valign-wrapper" style={{margin: "2px 0px"}}>
             {categoryToIcon(props.task.category)}
             <span className="title" style={{fontWeight: "bold"}}>{props.task.title}</span>
-            <span className="secondary-content red-text" 
-                style={{margin: "10px 0px", fontWeight: "bold"}}>
+            <span className="secondary-content red-text" style={{fontWeight: "bold"}}>
                 {props.task.date}
             </span>
         </li>
