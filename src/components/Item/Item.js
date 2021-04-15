@@ -30,6 +30,11 @@ const Item = (props) => {
                     fontSize: "20px",
                     marginTop: "0px"
                 }}>{props.data.time===""?"No time provided":props.data.time}</p></h5>) : null}
+
+                {props.data.status ? (<h5>Status<p style={{
+                    fontSize: "20px",
+                    marginTop: "0px"
+                }}>Completed <i class="material-icons green-text">done_all</i></p></h5>) : null}
                 
             </div>
             <div class="modal-footer" style={{textAlign: "center"}}>
