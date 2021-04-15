@@ -5,6 +5,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import {habitValidator} from '../../utility/validators';
+import Item from '../../components/Item/Item';
+import $ from 'jquery';
 
 class Habits extends Component {
     state = {
@@ -23,13 +25,18 @@ class Habits extends Component {
         },
         //true -> add , false -> update
         formState: true,
-        valid: false
+        valid: false,
+        modalData: {
+            title: "",
+            description: "",
+            category: ""
+        }
     }
     componentWillMount(){
         this.props.getHabits();
     }
     componentDidMount(){
-        let modal = document.querySelector('.modal');
+        let modal = document.querySelectorAll('.modal');
         M.Modal.init(modal, {});
         M.FormSelect.init(document.getElementById('category'), {});
     }
@@ -49,7 +56,12 @@ class Habits extends Component {
                 label: "active"
             },
             formState: true,
-            valid: false
+            valid: false,
+            modalData: {
+                title: "",
+                description: "",
+                category: ""
+            }
         });
     }
     onTitleChange = (event) => {
@@ -90,7 +102,8 @@ class Habits extends Component {
         }
         this.clearForm();
     }
-    onEditHabit = (data) => {
+    onEditHabit = (event, data) => {
+        event.stopPropagation();
         this.setState({
             id: data.id,
             category: {
@@ -108,7 +121,17 @@ class Habits extends Component {
             formState: false,
             valid: true
         });
-        document.getElementById("openForm").click();
+        $('#openForm').click();
+    }
+    openElement = (data) => {
+        this.setState({
+            modalData: {
+                title: data.title,
+                description: data.description,
+                category: data.category
+            }
+        });
+        document.getElementById('openModal').click();
     }
     render() {
         return (
@@ -117,13 +140,21 @@ class Habits extends Component {
                     <li className="collection-header"><h3>HABITS</h3></li>
                     {this.props.habits.map(habit => (
                         <Habit key={habit.id} habit={habit} 
-                                delete={this.props.deleteHabit}
-                                edit={this.onEditHabit} />
+                                delete={(event, data) => {
+                                    event.stopPropagation();
+                                    this.props.deleteHabit(data);
+                                }}
+                                edit={this.onEditHabit}
+                                click={this.openElement} />
                     ))}
                 </ul>
-                <button id="openForm" href="#addhabit" className="btn-large white waves-effect waves-indigo blue-text modal-trigger" style={{marginBottom: "20px"}}>
-                    <i className="material-icons left">add</i>Add Habit
-                </button>
+                <div id="modal1" className="modal modal-fixed-footer">
+                    <Item data={this.state.modalData} />
+                </div>
+                <button id="openModal" href="#modal1" className="modal-trigger" style={{
+                    display: "none"
+                }}></button>
+
                 <div id="addhabit" className="modal modal-fixed-footer" 
                     style={{minHeight: "400px", outline: "none", padding: "20px 0px"}}>
                     <div className="modal-content">
@@ -160,6 +191,9 @@ class Habits extends Component {
                         <a className="btn red darken-4 white-text modal-close" onClick={this.clearForm}>Cancel</a>
                     </div>
                 </div>
+                <button id="openForm" href="#addhabit" className="btn-large white waves-effect waves-indigo blue-text modal-trigger" style={{marginBottom: "20px"}}>
+                    <i className="material-icons left">add</i>Add Habit
+                </button>
             </div>
         );
     }
