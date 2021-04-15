@@ -5,6 +5,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { taskValidator } from '../../utility/validators';
+import Item from '../../components/Item/Item';
 
 class Tasks extends Component {
     state = {
@@ -30,7 +31,14 @@ class Tasks extends Component {
             label: ""
         },
         formState: true,
-        valid: false
+        valid: false,
+        modalData: {
+            title: "",
+            description: "",
+            category: "",
+            date: "",
+            time: ""
+        }
     }
     componentWillMount(){
         this.props.getTasks();
@@ -45,6 +53,8 @@ class Tasks extends Component {
             autoClose: true,
             onCloseEnd: this.onTimeChange
         });
+        let modal = document.querySelectorAll('.modal');
+        M.Modal.init(modal, {});
     }
     clearForm = () => {
         document.getElementById("addtask").style.display = "none";
@@ -71,7 +81,14 @@ class Tasks extends Component {
                 label: ""
             },
             formState: true,
-            valid: false
+            valid: false,
+            modalData: {
+                title: "",
+                description: "",
+                category: "",
+                date: "",
+                time: ""
+            }
         });
     }
     onTitleChange = (event) => {
@@ -143,7 +160,8 @@ class Tasks extends Component {
         }
         this.clearForm();
     }
-    onEditTask = (data) => {
+    onEditTask = (event, data) => {
+        event.stopPropagation();
         this.setState({
             id: data.id,
             category: {
@@ -171,6 +189,18 @@ class Tasks extends Component {
         });
         document.getElementById("addtask").style.display = "block";
     }
+    openElement = (data) => {
+        this.setState({
+            modalData: {
+                title: data.title,
+                description: data.description,
+                category: data.category,
+                date: data.date,
+                time: data.time
+            }
+        });
+        document.getElementById('openModal1').click();
+    }
     render() {
         return (
             <div className="container center" style={{marginTop: "20px"}}>
@@ -178,11 +208,22 @@ class Tasks extends Component {
                     <li className="collection-header center"><h3>TASKS</h3></li>
                     {this.props.tasks.map(task => (
                         <Task key={task.id} task={task} 
-                                delete={this.props.deleteTask}
+                                delete={(event, id) => {
+                                    event.stopPropagation();
+                                    this.props.deleteTask(id);
+                                }}
                                 edit={this.onEditTask}
-                                complete={this.props.taskComplete} />
+                                complete={this.props.taskComplete}
+                                clik={this.openElement} />
                     ))}
                 </ul>
+                <div id="modal1" className="modal modal-fixed-footer">
+                    <Item data={this.state.modalData} />
+                </div>
+                <button id="openModal1" href="#modal1" className="modal-trigger" style={{
+                    display: "none"
+                }}></button>
+
                 <button className="btn-large waves-effect waves-yellow white red-text"
                     style={{marginBottom: "30px"}}
                     onClick={() => {document.getElementById("addtask").style.display = "block"}}>

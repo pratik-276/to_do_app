@@ -3,7 +3,9 @@ import {categoryToIcon} from '../../../utility/CategoryIcon';
 
 const Task = (props) => {
     return (
-        <li className="collection-item avatar left-align" style={{margin: "2px 0px"}}>
+        <li className="collection-item avatar left-align" 
+            style={{margin: "2px 0px"}}
+            onClick={() => props.clik(props.task)}>
             {categoryToIcon(props.task.category)}
             <span className="title" style={{fontWeight: "bold"}}>
                 {props.task.title}
@@ -13,10 +15,10 @@ const Task = (props) => {
                 <i className="material-icons green-text"
                     onClick={() => props.complete(props.task)}>done</i>&nbsp;&nbsp;
                 <i class="fa fa-edit brown-text" style={{fontSize: "22px"}}
-                    onClick={() => props.edit(props.task)}></i>
+                    onClick={(event) => props.edit(event, props.task)}></i>
                 &nbsp;&nbsp;
                 <i className="material-icons red-text" 
-                    onClick={() => props.delete(props.task.id)}>delete</i>
+                    onClick={(event) => props.delete(event, props.task.id)}>delete</i>
             </span>
         </li>
     );

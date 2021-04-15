@@ -121,7 +121,7 @@ class Habits extends Component {
             formState: false,
             valid: true
         });
-        $('#openForm').click();
+        document.getElementById('openForm').click();
     }
     openElement = (data) => {
         this.setState({

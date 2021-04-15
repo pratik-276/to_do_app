@@ -5,21 +5,32 @@ const Item = (props) => {
     return (
         <div>
             <div class="modal-content left-align">
-                <h4>Title<p style={{
-                    fontSize: "22px",
+                <h5>Title<p style={{
+                    fontSize: "20px",
                     marginTop: "0px"
-                }}>{props.data.title}</p></h4>
+                }}>{props.data.title}</p></h5>
                 
-                <h4>Description<p style={{
-                    fontSize: "22px",
+                <h5>Description<p style={{
+                    fontSize: "20px",
                     marginTop: "0px"
-                }}>{props.data.description===""?"No description added":props.data.description}</p></h4>
+                }}>{props.data.description===""?"No description added":props.data.description}</p></h5>
                 
-                <h4>Category</h4>
+                <h5>Category</h5>
                 <p style={{
-                    fontSize: "22px",
+                    fontSize: "20px",
                     marginTop: "0px"
                 }}>{categoryToIcon(props.data.category)}&nbsp;&nbsp;{props.data.category}</p>
+
+                {props.data.date ? (<h5>Date<p style={{
+                    fontSize: "20px",
+                    marginTop: "0px"
+                }}>{props.data.date}</p></h5>) : null}
+
+                {props.data.time ? (<h5>Time<p style={{
+                    fontSize: "20px",
+                    marginTop: "0px"
+                }}>{props.data.time===""?"No time provided":props.data.time}</p></h5>) : null}
+                
             </div>
             <div class="modal-footer" style={{textAlign: "center"}}>
                 <button className="btn-floating red">
