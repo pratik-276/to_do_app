@@ -76,7 +76,10 @@ const addCompletedTask = (data) => {
         description: data.description,
         date: data.date,
         time: data.time,
-        category: data.category
+        category: data.category,
+        completed: data.completed,
+        experience: data.experience,
+        remarks: data.remarks
     }
     return dispatch => {
         axios.post("complete.json", newData)

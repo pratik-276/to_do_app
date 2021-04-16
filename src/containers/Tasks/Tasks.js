@@ -47,8 +47,9 @@ class Tasks extends Component {
             date: "",
             time: "",
             completed: "onTime",
-            experience: "1",
-            remarks: ""
+            experience: 0,
+            remarks: "",
+            valid: false
         }
     }
     componentWillMount(){
@@ -69,6 +70,7 @@ class Tasks extends Component {
     }
     clearForm = () => {
         document.getElementById("addtask").style.display = "none";
+        this.starRating(0);
         this.setState({
             id: "",
             title: {
@@ -108,8 +110,9 @@ class Tasks extends Component {
                 date: "",
                 time: "",
                 completed: "onTime",
-                experience: "1",
-                remarks: ""
+                experience: 0,
+                remarks: "",
+                valid: false
             }
         });
     }
@@ -249,6 +252,67 @@ class Tasks extends Component {
     taskCompletedHandler = () => {
         this.props.taskComplete(this.state.completeData);
     }
+    starRating = (num) => {
+        switch(num){
+            case 1:
+                document.getElementById("star1").classList.add("orange-text");
+                document.getElementById("star2").classList.remove("orange-text");
+                document.getElementById("star3").classList.remove("orange-text");
+                document.getElementById("star4").classList.remove("orange-text");
+                document.getElementById("star5").classList.remove("orange-text");
+                break;
+            case 2:
+                document.getElementById("star1").classList.add("orange-text");
+                document.getElementById("star2").classList.add("orange-text");
+                document.getElementById("star3").classList.remove("orange-text");
+                document.getElementById("star4").classList.remove("orange-text");
+                document.getElementById("star5").classList.remove("orange-text");
+                break;
+            case 3:
+                document.getElementById("star1").classList.add("orange-text");
+                document.getElementById("star2").classList.add("orange-text");
+                document.getElementById("star3").classList.add("orange-text");
+                document.getElementById("star4").classList.remove("orange-text");
+                document.getElementById("star5").classList.remove("orange-text");
+                break;
+            case 4:
+                document.getElementById("star1").classList.add("orange-text");
+                document.getElementById("star2").classList.add("orange-text");
+                document.getElementById("star3").classList.add("orange-text");
+                document.getElementById("star4").classList.add("orange-text");
+                document.getElementById("star5").classList.remove("orange-text");
+                break;
+            case 5:
+                document.getElementById("star1").classList.add("orange-text");
+                document.getElementById("star2").classList.add("orange-text");
+                document.getElementById("star3").classList.add("orange-text");
+                document.getElementById("star4").classList.add("orange-text");
+                document.getElementById("star5").classList.add("orange-text");
+                break;
+            default:
+                document.getElementById("star1").classList.remove("orange-text");
+                document.getElementById("star2").classList.remove("orange-text");
+                document.getElementById("star3").classList.remove("orange-text");
+                document.getElementById("star4").classList.remove("orange-text");
+                document.getElementById("star5").classList.remove("orange-text");
+                break;
+        }
+        this.setState({
+            completeData: {
+                ...this.state.completeData,
+                experience: num,
+                valid: true
+            }
+        });
+    }
+    onRemarksChange = (event) => {
+        this.setState({
+            completeData: {
+                ...this.state.completeData,
+                remarks: event.target.value
+            }
+        })
+    }
     render() {
         return (
             <div className="container center" style={{marginTop: "20px"}}>
@@ -273,9 +337,9 @@ class Tasks extends Component {
                 }}></button>
 
                 <div id="modal2" className="modal modal-fixed-footer">
-                    <div class="container">
+                    <div className="modal-content" style={{paddingTop: "14px"}}>
                         <h4><b>{this.state.completeData.title}</b></h4>
-                        <p>{this.state.completeData.date}</p>
+                        <p><b>{this.state.completeData.date}</b></p>
                         <div className="input-field">
                             <p className="left">The task was completed:</p> 
                             <select className="browser-default" id="completed" 
@@ -289,6 +353,37 @@ class Tasks extends Component {
                                 <option value="afterTime">After Time</option>
                             </select>
                         </div>
+                        <div className="valign-wrapper" style={{
+                            display: "flex",
+                            flexDirection: "row"
+                        }}>
+                            <p className="left">Experience: </p>&nbsp;&nbsp;
+                            <div>
+                                <i className="material-icons" id="star1" 
+                                onClick={() => this.starRating(1)}>star</i>
+                                <i className="material-icons" id="star2" 
+                                onClick={() => this.starRating(2)}>star</i>
+                                <i className="material-icons" id="star3" 
+                                onClick={() => this.starRating(3)}>star</i>
+                                <i className="material-icons" id="star4" 
+                                onClick={() => this.starRating(4)}>star</i>
+                                <i className="material-icons" id="star5" 
+                                onClick={() => this.starRating(5)}>star</i>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <textarea className="materialize-textarea" id="remarks" cols="30" rows="10" value={this.state.remarks}
+                            onChange={this.onRemarksChange}></textarea>
+                            <label htmlFor="remarks">Remarks (optional)</label>
+                        </div>
+                        <p>Do fill this to get a customized dashboard based on your activities :)</p>
+                    </div>
+                    <div class="modal-footer" style={{textAlign: "center"}}>
+                        <a className="btn green white-text modal-action modal-close" 
+                            onClick={this.taskCompletedHandler}
+                            disabled={!this.state.completeData.valid}>Complete</a>&nbsp;
+                        <a class="btn red white-text modal-action modal-close" 
+                            onClick={() => this.clearForm()}>Cancel</a>
                     </div>
                 </div>
                 <button id="openModal2" href="#modal2" className="modal-trigger" style={{

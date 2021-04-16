@@ -46,20 +46,6 @@ class Header extends Component {
                         </div>
                     </nav>
                 </div>
-                {/* <ul className="sidenav" id="slide-out">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/habits">Habits</a>
-                    </li>
-                    <li>
-                        <a href="/tasks">Tasks</a>
-                    </li>
-                    <li>
-                        <a href="/complete">Completed Tasks</a>
-                    </li>
-                </ul> */}
                 <ul id="slide-out" className="sidenav">
                     <li>
                         <div className="user-view indigo lighten-1 darken-4">
