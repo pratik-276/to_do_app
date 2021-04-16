@@ -13,7 +13,7 @@ const Task = (props) => {
             <p>{props.task.date}</p>
             <span className="secondary-content">
                 <i className="material-icons green-text"
-                    onClick={() => props.complete(props.task)}>done</i>&nbsp;&nbsp;
+                    onClick={(event) => props.complete(event, props.task)}>done</i>&nbsp;&nbsp;
                 <i class="fa fa-edit brown-text" style={{fontSize: "22px"}}
                     onClick={(event) => props.edit(event, props.task)}></i>
                 &nbsp;&nbsp;

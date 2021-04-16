@@ -38,6 +38,17 @@ class Tasks extends Component {
             category: "",
             date: "",
             time: ""
+        },
+        completeData: {
+            id: "",
+            title: "",
+            description: "",
+            category: "",
+            date: "",
+            time: "",
+            completed: "onTime",
+            experience: "1",
+            remarks: ""
         }
     }
     componentWillMount(){
@@ -88,6 +99,17 @@ class Tasks extends Component {
                 category: "",
                 date: "",
                 time: ""
+            },
+            completeData: {
+                id: "",
+                title: "",
+                description: "",
+                category: "",
+                date: "",
+                time: "",
+                completed: "onTime",
+                experience: "1",
+                remarks: ""
             }
         });
     }
@@ -201,6 +223,32 @@ class Tasks extends Component {
         });
         document.getElementById('openModal1').click();
     }
+    completeChange = (event) => {
+        this.setState({
+            completeData: {
+                ...this.state.completeData,
+                completed: event.target.value
+            }
+        });
+    }
+    completeTaskHandler = (event, data) => {
+        event.stopPropagation();
+        this.setState({
+            completeData: {
+                ...this.state.completeData,
+                id: data.id,
+                title: data.title,
+                description: data.description,
+                date: data.date,
+                time: data.time,
+                category: data.category
+            }
+        })
+        document.getElementById('openModal2').click();
+    }
+    taskCompletedHandler = () => {
+        this.props.taskComplete(this.state.completeData);
+    }
     render() {
         return (
             <div className="container center" style={{marginTop: "20px"}}>
@@ -213,7 +261,7 @@ class Tasks extends Component {
                                     this.props.deleteTask(id);
                                 }}
                                 edit={this.onEditTask}
-                                complete={this.props.taskComplete}
+                                complete={this.completeTaskHandler}
                                 clik={this.openElement} />
                     ))}
                 </ul>
@@ -221,6 +269,29 @@ class Tasks extends Component {
                     <Item data={this.state.modalData} />
                 </div>
                 <button id="openModal1" href="#modal1" className="modal-trigger" style={{
+                    display: "none"
+                }}></button>
+
+                <div id="modal2" className="modal modal-fixed-footer">
+                    <div class="container">
+                        <h4><b>{this.state.completeData.title}</b></h4>
+                        <p>{this.state.completeData.date}</p>
+                        <div className="input-field">
+                            <p className="left">The task was completed:</p> 
+                            <select className="browser-default" id="completed" 
+                                        value={this.state.completeData.completed}
+                                        style={{
+                                            width: "110px"
+                                        }}
+                                        onChange={this.completeChange}>
+                                <option value="onTime">On Time</option>
+                                <option value="beforeTime">Before Time</option>
+                                <option value="afterTime">After Time</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button id="openModal2" href="#modal2" className="modal-trigger" style={{
                     display: "none"
                 }}></button>
 
